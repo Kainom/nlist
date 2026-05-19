@@ -1,0 +1,39 @@
+<div class="page">
+  <a routerLink="/animes" class="back">
+    <svg lucideArrowLeft class="icon-back"></svg> Back to all animes
+  </a>
+
+  @if (anime()) {
+    <div class="detail">
+      <div class="detail__cover">
+        @if (anime()!.imageUrl) {
+          <img [src]="anime()!.imageUrl" [alt]="anime()!.title" />
+        }
+      </div>
+
+      <div class="detail__info">
+        <span class="status__badge">{{ anime()!.status }}</span>
+        <h1 class="detail__title">{{ anime()!.title }}</h1>
+
+        <div class="detail__meta">
+          <svg lucideStar class="icon-star"></svg>
+          <span class="meta__rating">{{ anime()!.rating }}/10</span>
+          <span class="meta__episodes">{{ anime()!.episodes }} episodes</span>
+        </div>
+
+        <p class="detail__desc">{{ anime()!.description }}</p>
+
+        <div class="detail__actions">
+          <a class="btn btn--primary" [routerLink]="['/anime/edit', anime()!._id]">
+            <svg lucidePencil class="icon-btn"></svg> Edit
+          </a>
+          <button class="btn btn--outline" (click)="delete()">
+            <svg lucideTrash2 class="icon-btn"></svg> Delete
+          </button>
+        </div>
+      </div>
+    </div>
+  }
+
+  <p class="footer">Made with <svg lucideHeart class="icon-heart"></svg> for you</p>
+</div>

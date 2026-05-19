@@ -1,0 +1,81 @@
+<div class="page">
+    <div class="page__header">
+        <h2 class="page__title">Add a new anime</h2>
+        <p class="page__subtitle">
+            Tell us about a story you loved
+            <svg lucideHeart class="icon-inline"></svg>
+        </p>
+    </div>
+
+    <form class="card" [formGroup]="form" (ngSubmit)="onSubmit()">
+
+        <div class="cover">
+            <div class="cover__preview">
+                @if (preview) {
+                <img [src]="preview" alt="cover" />
+                } @else {
+                <span class="cover__placeholder">
+                    Add a cover photo
+                    <svg lucideHeart class="icon-placeholder"></svg>
+                </span>
+                }
+            </div>
+            <div class="cover__inputs">
+                <input class="form__input" type="text" placeholder="Image URL" formControlName="imageUrl"
+                    (input)="onUrlChange()" />
+                <label class="btn__file">
+                    Choose File
+                    <input type="file" accept="image/*" (change)="onFileChange($event)" hidden />
+                </label>
+            </div>
+        </div>
+
+        <div class="form__field">
+            <label class="form__label">Title</label>
+            <input class="form__input" type="text" placeholder="My Hero Academia" formControlName="title" />
+        </div>
+
+        <div class="form__field">
+            <label class="form__label">Description</label>
+            <textarea class="form__textarea" placeholder="Why I love it..." formControlName="description"></textarea>
+        </div>
+
+        <div class="form__row">
+            <div class="form__field">
+                <label class="form__label">Rating</label>
+                <input class="form__input form__input--pill" type="number" placeholder="8" min="0" max="10"
+                    formControlName="rating" (change)="clampRating($event)" />
+            </div>
+            <div class="form__field">
+                <label class="form__label">Episodes</label>
+                <input class="form__input form__input--pill" type="number" placeholder="12"
+                    formControlName="episodes" />
+            </div>
+            <div class="form__field">
+                <label class="form__label">Status</label>
+                <div class="select__wrapper" [class.open]="statusOpen">
+                    <button type="button" class="form__input form__input--pill select__trigger"
+                        (click)="statusOpen = !statusOpen">
+                        {{ form.get('status')?.value }}
+                        <span class="select__arrow" [class.flipped]="statusOpen">▾</span>
+                    </button>
+                    <ul class="select__dropdown">
+                        @for (opt of statusOptions; track opt) {
+                        <li class="select__option" [class.active]="form.get('status')?.value === opt"
+                            (click)="selectStatus(opt)">
+                            {{ opt }}
+                        </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <button class="form__button" type="submit" [disabled]="form.invalid">
+            Add to my list
+        </button>
+
+    </form>
+
+    <p class="footer">Made with <svg lucideHeart class="icon-inline icon-inline--pink"></svg> for anime lovers</p>
+</div>

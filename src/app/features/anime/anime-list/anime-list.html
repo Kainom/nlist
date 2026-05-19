@@ -1,0 +1,57 @@
+<div class="page">
+  <div class="page__header">
+    <h2 class="page__title">All Animes</h2>
+    <p class="page__sub">
+      {{ total() }} {{ isSearching() ? 'resultados para "' + searchTerm() + '"' : 'titles in your collection' }}
+    </p>
+  </div>
+
+  <div class="search__wrapper">
+    <svg lucideSearch class="search__icon"></svg>
+    <input
+      class="search__input"
+      type="text"
+      placeholder="Buscar anime..."
+      [ngModel]="searchTerm()"
+      (ngModelChange)="onSearch($event)"
+    />
+  </div>
+
+  <div class="grid">
+    @for (anime of animes(); track anime._id) {
+      <a class="card" [routerLink]="['/anime', anime._id]">
+        <div class="card__cover">
+          @if (anime.imageUrl) {
+            <img [src]="anime.imageUrl" [alt]="anime.title" />
+          }
+        </div>
+        <div class="card__info">
+          <span class="card__title">{{ anime.title }}</span>
+          <span class="card__meta">
+            <svg lucideStar class="icon-star"></svg>
+            {{ anime.rating }}
+          </span>
+        </div>
+        <p class="card__status">{{ anime.status }} · {{ anime.episodes }} ep</p>
+      </a>
+    }
+  </div>
+
+  @if (total() === 0) {
+    <div class="empty">
+      <p>Nenhum anime encontrado para "{{ searchTerm() }}"</p>
+    </div>
+  }
+
+  @if (!isSearching() && totalPages() > 1) {
+    <div class="pagination">
+      <button class="page__btn" [disabled]="page() === 1" (click)="goTo(page() - 1)">‹</button>
+      @for (p of pages(); track p) {
+        <button class="page__btn" [class.active]="page() === p" (click)="goTo(p)">{{ p }}</button>
+      }
+      <button class="page__btn" [disabled]="page() === totalPages()" (click)="goTo(page() + 1)">›</button>
+    </div>
+  }
+
+  <p class="footer">Made with <svg lucideHeart class="icon-heart"></svg> for you</p>
+</div>

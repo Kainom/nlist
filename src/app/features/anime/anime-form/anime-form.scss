@@ -1,0 +1,268 @@
+$gradient-pink: linear-gradient(135deg, oklch(0.78 0.16 350), oklch(0.7 0.2 330));
+$bg: oklch(0.97 0.01 350);
+$pink: oklch(0.7 0.2 330);
+$foreground: oklch(0.32 0.09 350);
+
+.page {
+  background: $bg;
+  min-height: calc(100vh - 64px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 16px;
+  gap: 24px;
+}
+
+.page__header {
+  text-align: center;
+}
+
+.page__title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #2a0a1a;
+  margin: 0 0 4px;
+}
+
+.page__subtitle {
+  color: #888;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  margin: 0;
+}
+
+.card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 32px;
+  width: 100%;
+  max-width: 640px; // <- aumenta aqui
+  box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.cover {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.cover__preview {
+  width: 140px;
+  height: 140px;
+  border-radius: 12px;
+  border: 2px dashed $pink;
+  background: oklch(0.96 0.02 350);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.cover__placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.8rem;
+  color: $pink;
+}
+
+.cover__inputs {
+  display: flex;
+  gap: 8px;
+  width: 100%;
+}
+
+.form__field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+}
+
+.form__label {
+  font-size: 0.85rem;
+  color: $foreground;
+  margin: 0;
+}
+
+.form__input {
+  padding: 10px 14px;
+  border: 1.5px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  outline: none;
+  width: 100%;
+  box-sizing: border-box;
+  transition: border-color 0.2s;
+
+  &:focus {
+    border-color: $pink;
+  }
+}
+
+.form__textarea {
+  @extend .form__input;
+  resize: vertical;
+  min-height: 100px;
+}
+
+.form__row {
+  display: flex;
+  gap: 12px;
+}
+
+.form__button {
+  padding: 12px;
+  background: $gradient-pink;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: opacity 0.2s;
+  width: 100%;
+
+  &:hover { opacity: 0.9; }
+  &:disabled { opacity: 0.5; cursor: not-allowed; }
+}
+
+.btn__file {
+  padding: 10px 14px;
+  border: 1.5px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  white-space: nowrap;
+  color: #444;
+  transition: border-color 0.2s;
+
+  &:hover { border-color: $pink; }
+}
+
+.footer {
+  font-size: 0.85rem;
+  color: #aaa;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.icon-inline {
+  width: 14px;
+  height: 14px;
+  stroke: #aaa;
+  fill: none;
+
+  &--pink {
+    fill: $pink;
+    stroke: none;
+  }
+}
+
+.icon-placeholder {
+  width: 16px;
+  height: 16px;
+  stroke: $pink;
+  fill: none;
+}
+
+.form__input--pill {
+  border-radius: 5px;
+}
+
+.select__wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.form__select {
+  appearance: none;
+  -webkit-appearance: none;
+  padding-right: 36px;
+  cursor: pointer;
+  width: 100%;
+}
+
+.select__arrow {
+  position: absolute;
+  right: 14px;
+  pointer-events: none;
+  color: #888;
+  font-size: 0.85rem;
+}
+
+.select__wrapper {
+  position: relative;
+}
+
+.select__trigger {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  background: #fff;
+  text-align: left;
+}
+
+.select__arrow {
+  transition: transform 0.2s;
+  &.flipped { transform: rotate(180deg); }
+}
+
+.select__dropdown {
+  position: absolute;
+  bottom: calc(100% + 6px); // <- abre para cima
+  left: 0;
+  right: 0;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 -4px 20px rgba(0,0,0,0.1);
+  list-style: none;
+  margin: 0;
+  padding: 6px;
+  display: none;
+  z-index: 10;
+  flex-direction: column;
+  gap: 2px;
+
+  .open & {
+    display: flex;
+  }
+}
+
+.select__option {
+  padding: 10px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  color: #444;
+  transition: background 0.15s;
+
+  &:hover {
+    background: oklch(0.96 0.02 350);
+    color: oklch(0.7 0.2 330);
+  }
+
+  &.active {
+    background: oklch(0.93 0.04 350);
+    color: oklch(0.7 0.2 330);
+    font-weight: 600;
+  }
+}

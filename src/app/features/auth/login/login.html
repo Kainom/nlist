@@ -1,0 +1,31 @@
+<div class="father">
+  <div class="login">
+    <div class="login__card">
+
+      <div class="login__header">
+        <span class="heart">
+          <svg lucideHeart class="icon"></svg>
+        </span>
+        <h2 class="login__title">Bem vindo de volta!</h2>
+        <p class="login__subtitle">Bom te ver novamente, terminou um novo anime?</p>
+      </div>
+
+      <form class="login__form" [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div class="login__field">
+          <label class="login__label">Email</label>
+          <input class="login__input" type="email" placeholder="seu@email.com" formControlName="email" />
+        </div>
+
+        <div class="login__field">
+          <label class="login__label">Password</label>
+          <input class="login__input" type="password" placeholder="••••••••" formControlName="password" />
+        </div>
+
+        <button class="login__button" type="submit" [disabled]="form.invalid">Sign In</button>
+      </form>
+
+    </div>
+  </div>
+      <p class="footer">Made with <svg lucideHeart class="icon-inline icon-inline--pink"></svg>for you</p>
+
+</div>

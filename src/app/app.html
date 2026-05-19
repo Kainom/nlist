@@ -1,0 +1,39 @@
+@if (loading.isLoading()) {
+  <div class="loading-bar">
+    <div class="loading-bar__fill"></div>
+  </div>
+}
+
+@if (error.message()) {
+  <div class="toast">
+    <span>{{ error.message() }}</span>
+    <button class="toast__close" (click)="error.dismiss()">✕</button>
+  </div>
+}
+
+@if (auth.isInitialized()) {
+  <header class="header">
+    <div class="header__container">
+      <a routerLink="/" class="header__brand">
+        <span class="header_logo">
+          <svg lucideHeart class="icon"></svg>
+        </span>
+        <span class="header__title">
+          Nat<span class="header__highlight">List</span>
+        </span>
+      </a>
+      <div class="header__actions">
+        @if (auth.isLoggedIn()) {
+          <a routerLink="/anime/new" class="header__button">+ Add Anime</a>
+          <button class="header__button header__button--outline" (click)="auth.logout()">Sign Out</button>
+        } @else {
+          <a routerLink="/login" class="header__button header__button--outline">Sign In</a>
+        }
+      </div>
+    </div>
+  </header>
+} @else {
+  <div class="header-placeholder"></div>
+}
+
+<router-outlet></router-outlet>
