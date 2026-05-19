@@ -38,6 +38,7 @@ export class AuthService {
   logout() {
     localStorage.removeItem('token');
     this.isLoggedIn.set(false);
+    window.location.href = '/login';
   }
 
   getToken() {
